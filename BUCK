@@ -47,14 +47,9 @@ cxx_library(
     ('android.*', [ '-D_REENTRANT', '-DOS_ANDROID', '-DLEVELDB_PLATFORM_POSIX', '-fno-builtin-memcmp', '-Wno-sign-compare' ]),
     ('windows.*', [ '-lpthread', '-DOS_LINUX', '-DCYGWIN' ]),
   ],
-  # platform_linker_flags = [
-  #   ('linux.*', [ '-lpthread' ]), 
-  # ], 
-  # exported_platform_linker_flags = [
-  #   ('linux.*', [ '-lpthread' ]), 
-  # ], 
-  deps = [
-    ':pthread', 
+  platform_deps = [
+    ('linux.*', [ ':pthread' ]), 
+    ('android.*', [ ':pthread' ]), 
   ], 
   visibility = [
     'PUBLIC',
@@ -73,7 +68,6 @@ cxx_binary(
   srcs = glob([
     'db/autocompact_test.cc',
     'util/testharness.cc', 
-    # 'db/**/*_test.cc',
   ]),
   compiler_flags = [
     '-std=c++11',
@@ -82,12 +76,7 @@ cxx_binary(
     ('macos.*', [ '-DOS_MACOSX', '-fno-builtin-memcmp', '-DLEVELDB_PLATFORM_POSIX', '-DLEVELDB_ATOMIC_PRESENT' ]),
     ('linux.*', [ '-DOS_LINUX', '-DLEVELDB_PLATFORM_POSIX' ]),
   ],
-  # platform_linker_flags = [
-  #   ('linux.*', [ '-lpthread' ]), 
-  # ], 
   deps = [
-    # ':pthread', 
     ':leveldb',
-    # ':pthread', 
   ],
 )

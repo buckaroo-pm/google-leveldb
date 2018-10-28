@@ -49,7 +49,7 @@ cxx_library(
   ],
   platform_deps = [
     ('linux.*', [ ':pthread' ]), 
-    ('android.*', [ ':pthread' ]), 
+    # ('android.*', [ ':pthread' ]), 
   ], 
   visibility = [
     'PUBLIC',
